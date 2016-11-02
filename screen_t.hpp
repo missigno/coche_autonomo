@@ -1,7 +1,8 @@
 #ifndef SCREEN_T_H
 #define SCREEN_T_H
-#include "common.hpp"
-#include "map_t.h"
+//#include "common.hpp"
+//#include "map_t.h"
+#include "a_star_search_t.h"
 #include "coche_autonomo_t.h"
 
 #include <allegro5/allegro.h>

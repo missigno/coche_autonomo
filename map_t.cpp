@@ -78,6 +78,21 @@ void map_t::create_map(void)
   cells_=new cell_t[n_*m_];
   for(my_size_t i=0; i<size_; i++)
     cells_[i]=CeldaLibre; //reseteamos todas las celdas del mapa
+  for(my_size_t j=1; j<=m_; j++)
+    set(1,j,CeldaObstaculo);
+  for(my_size_t i=2; i<n_; ++i)
+  {
+    set(i,1,CeldaObstaculo);
+    set(i,m_,CeldaObstaculo);
+    //et_set(i,1)=CeldaObstaculo;
+    //(i,m_)=CeldaObstaculo;
+  }
+  for(my_size_t j=1; j<=m_; j++)
+    set(n_,j,CeldaObstaculo);
+    //(n_,j)=CeldaObstaculo;
+    //for(my_size_t j=1; j<=penultimo; ++j)
+      //(i,j)=CeldaObstaculo;
+
 }
 
 void map_t::destroy_map(void)
@@ -161,13 +176,24 @@ bool map_t::final(const my_size_t i, const my_size_t j) const
   return(get(i,j)==CeldaFinal);
 }
 
-bool map_t::paradas_visitadas(void) const
+my_size_t map_t::paradas_visitadas(void) const
 {
+  my_size_t cont=0;
+  const my_size_t size_=n_*m_;
+  for(my_size_t i=0; i<size_; i++)
+    if(cells_[i]==CeldaParadaVisitada)
+      ++cont;
+  return(cont);
+}
+
+my_size_t map_t::paradas_no_visitadas(void) const
+{
+  my_size_t cont=0;
   const my_size_t size_=n_*m_;
   for(my_size_t i=0; i<size_; i++)
     if(cells_[i]==CeldaParada)
-      return(0);
-  return(1);
+      ++cont;
+  return(cont);
 }
 
 void map_t::get_pos_coche(my_size_t &x, my_size_t &y)
@@ -175,6 +201,18 @@ void map_t::get_pos_coche(my_size_t &x, my_size_t &y)
   for(my_size_t i=1; i<n_; i++)
     for(my_size_t j=1; j<m_; j++)
       if(get(i,j)==CeldaInicial)
+      {
+        x=j;
+        y=i;
+        return;
+      }
+}
+
+void map_t::get_pos_end(my_size_t &x, my_size_t &y)
+{
+  for(my_size_t i=1; i<n_; i++)
+    for(my_size_t j=1; j<m_; j++)
+      if(get(i,j)==CeldaFinal)
       {
         x=j;
         y=i;

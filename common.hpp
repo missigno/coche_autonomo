@@ -37,6 +37,7 @@
 #include <string>
 #include <iostream>
 
+
 extern const double FPS;
 
 typedef unsigned short int my_size_t;
@@ -59,5 +60,11 @@ extern my_size_t EscaladoPixelsY;
 
 
 void calcular_escalado(void);
+
+struct point_t
+{
+  my_size_t x;
+  my_size_t y;
+};
 
 #endif // COMMON_HPP

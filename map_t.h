@@ -32,9 +32,11 @@ class map_t
     bool visitable(const my_size_t i, const my_size_t j) const;
     void visitar(const my_size_t i, const my_size_t j);
     bool final(const my_size_t i, const my_size_t j) const;
-    bool paradas_visitadas(void) const;
+    my_size_t paradas_visitadas(void) const;
+    my_size_t paradas_no_visitadas(void) const;
 
     void get_pos_coche(my_size_t &x, my_size_t &y);
+    void get_pos_end(my_size_t &x, my_size_t &y);
     void generar_aleatorio(const double porcentaje, const my_size_t numero_paradas);
     //get_paradas
     //get_final

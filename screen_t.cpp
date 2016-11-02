@@ -153,6 +153,7 @@ void screen_t::run(void)
     if(events.type == ALLEGRO_EVENT_TIMER)
     {
       al_get_keyboard_state(&keyState);
+      /*
       if(al_key_down(&keyState,ALLEGRO_KEY_DOWN)&&map_.visitable(coche_.get_y()+1,coche_.get_x()))
       {
         visitar_celda(coche_.get_x(),coche_.get_y());
@@ -176,10 +177,41 @@ void screen_t::run(void)
         visitar_celda(coche_.get_x(),coche_.get_y());
         coche_.decr_x();
         draw=1;
-      }
-      else if(al_key_down(&keyState,ALLEGRO_KEY_P))
+      }*/
+      /*else*/
+      if(al_key_down(&keyState,ALLEGRO_KEY_P))
       {
         poner_obstaculos();
+      }
+      else if(al_key_down(&keyState,ALLEGRO_KEY_R))
+      {
+        std::clog<<"Intentando resolver.."<<std::endl;
+        a_star_search_t a_star(&map_);
+        my_size_t x,y;
+        map_.get_pos_end(x,y);
+        std::vector<point_t> path=a_star.search(coche_.get_x(),coche_.get_y(),x,y);
+        if(path.size())
+        {
+          std::cout<<"Se ha encontrado una solución."<<std::endl;
+
+          //my_size_t answer =al_show_native_message_box(nullptr, "coche autónomo", "Se ha encontrado una solución", "¿Desea que se muestre?",nullptr,ALLEGRO_MESSAGEBOX_YES_NO);
+          //if(answer==1)
+          {
+            map_.write_file("./map_not_solved.txt");
+            std::cout<<"Número de paradas visitadas: "<<map_.paradas_visitadas()<<std::endl;
+            std::cout<<"Número de paradas sin visitar: "<<map_.paradas_no_visitadas()<<std::endl;
+            for(my_size_t i=0; i<path.size(); i++)
+            {
+              coche_.set(path[i].x,path[i].y);
+              visitar_celda(coche_.get_x(),coche_.get_y());
+              draw_coche(coche_.get_x(),coche_.get_y());
+              al_flip_display(); //actualizar imagen
+              draw_cell(coche_.get_y(),coche_.get_x());
+            }
+          }
+        }
+        else
+          std::cout<<"No se ha encontrado ninguna solución."<<std::endl;
       }
     }
     if(draw)
@@ -188,8 +220,8 @@ void screen_t::run(void)
       draw_coche(coche_.get_x(),coche_.get_y());
       al_flip_display(); //actualizar imagen
       draw_cell(coche_.get_y(),coche_.get_x());
-      if(end())
-        done=1;
+      //if(end())
+        //done=1;
     }
   }
   while(!done);
