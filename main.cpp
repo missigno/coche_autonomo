@@ -1,6 +1,7 @@
-#include "mainwindow.h"
+
 #include <QApplication>
 
+#include "mainwindow.h"
 
 #include "screen_t.hpp"
 #include "common.hpp"

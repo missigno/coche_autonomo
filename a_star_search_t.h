@@ -15,7 +15,7 @@ class a_star_search_t
     map_t* map_;//podria evitarse
   public:
     a_star_search_t(map_t *map);
-    //~a_star_search_t(void);
+    ~a_star_search_t(void);
     std::vector<point_t> search(const my_size_t s_x, const my_size_t s_y, const my_size_t e_x, const my_size_t e_y);
   private:
     void add_node_a_list(a_star_search_node_t* node);

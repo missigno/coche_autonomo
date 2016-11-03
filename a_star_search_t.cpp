@@ -6,7 +6,7 @@ a_star_search_t::a_star_search_t(map_t *map):
   best_path(),
   map_(map)
   {}
-/*
+
 a_star_search_t::~a_star_search_t(void)
 {
   map_ = nullptr;
@@ -21,7 +21,7 @@ a_star_search_t::~a_star_search_t(void)
     a_list.pop_back();
   }
 }
-*/
+
 void a_star_search_t::add_node_a_list(a_star_search_node_t* node)
 {
   my_size_t i=0;
@@ -185,7 +185,6 @@ std::vector<point_t> a_star_search_t::search(const my_size_t s_x, const my_size_
     }
     */
     c_list.push_back(current);
-
   }
   std::vector<point_t> aux;
   return(aux);

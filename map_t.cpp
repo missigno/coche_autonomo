@@ -232,7 +232,7 @@ void map_t::generar_aleatorio(const double porcentaje, const my_size_t n_paradas
   srand(semilla);
   do
   {
-    aux=rand()%total;
+    aux=(rand()*clock())%total;
     if(cells_[aux]==CeldaLibre)
     {
       cells_[aux]=CeldaObstaculo;

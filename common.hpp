@@ -40,7 +40,7 @@
 
 extern const double FPS;
 
-typedef unsigned short int my_size_t;
+typedef unsigned int my_size_t;
 
 extern bool undefined;
 

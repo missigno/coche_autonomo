@@ -65,6 +65,7 @@ screen_t::screen_t(void):
       case OpcionManual:
         map_.resize(Filas,Columnas);
         calcular_escalado();
+        load_map();
         edit_map_opcion_manual();
         break;
       case OpcionFichero:
@@ -135,6 +136,7 @@ void screen_t::run(void)
   // poner una ventanita con las instrucciones
   bool done=0;
   bool draw=0;
+  clock_t t_s, t_e;
   draw_coche(coche_.get_x(),coche_.get_y());
   al_flip_display();
   draw_cell(coche_.get_y(),coche_.get_x());
@@ -186,10 +188,14 @@ void screen_t::run(void)
       else if(al_key_down(&keyState,ALLEGRO_KEY_R))
       {
         std::clog<<"Intentando resolver.."<<std::endl;
+        t_s=clock();
         a_star_search_t a_star(&map_);
         my_size_t x,y;
         map_.get_pos_end(x,y);
         std::vector<point_t> path=a_star.search(coche_.get_x(),coche_.get_y(),x,y);
+        t_e=clock();
+        t_e-=t_s;
+        printf("%d ciclos de reloj (%f segundos).\n",t_e,((float)t_e)/CLOCKS_PER_SEC);
         if(path.size())
         {
           std::cout<<"Se ha encontrado una solución."<<std::endl;
@@ -278,7 +284,7 @@ void screen_t::edit_map_opcion_manual(void)
     {
 
       celda_x=x/EscaladoPixelsX+1;
-      celda_y=y/EscaladoPixelsY +1;
+      celda_y=y/EscaladoPixelsY+1;
       if(events.mouse.button & 1)
       {
         map_(celda_y,celda_x)=CeldaObstaculo;
