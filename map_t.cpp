@@ -252,16 +252,6 @@ void map_t::generar_aleatorio(const double porcentaje, const my_size_t n_paradas
   }
   while(cont<n_paradas);
 
-  do
-  {
-    aux=rand()%total;
-    if(cells_[aux]==CeldaLibre)
-    {
-      cells_[aux]=CeldaParada;
-      ++cont;
-    }
-  }
-  while(cont<n_paradas);
   baux=1;
   do
   {

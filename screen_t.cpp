@@ -204,8 +204,7 @@ void screen_t::run(void)
           //if(answer==1)
           {
             map_.write_file("./map_not_solved.txt");
-            std::cout<<"Número de paradas visitadas: "<<map_.paradas_visitadas()<<std::endl;
-            std::cout<<"Número de paradas sin visitar: "<<map_.paradas_no_visitadas()<<std::endl;
+            draw_cell(coche_.get_y(),coche_.get_x());
             for(my_size_t i=0; i<path.size(); i++)
             {
               coche_.set(path[i].x,path[i].y);
@@ -214,6 +213,8 @@ void screen_t::run(void)
               al_flip_display(); //actualizar imagen
               draw_cell(coche_.get_y(),coche_.get_x());
             }
+            std::cout<<"Número de paradas visitadas: "<<map_.paradas_visitadas()<<std::endl;
+            std::cout<<"Número de paradas sin visitar: "<<map_.paradas_no_visitadas()<<std::endl;
           }
         }
         else
